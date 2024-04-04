@@ -1,50 +1,35 @@
-import request from 'supertest';
-import { app } from '../../app';
+import supertest from "supertest";
+import { app } from "../../app";
 
-it('fails when a email that does not exist is supplied', async () => {
-  await request(app)
-    .post('/api/users/signin')
-    .send({
-      email: 'test@test.com',
-      password: 'password'
-    })
+it("returns 400 on invalid email", async () => {
+  return supertest(app)
+    .post("api/users/signin")
+    .send({ email: "test@example.com", password: "password" })
     .expect(400);
 });
 
-it('fails when an incorrect password is supplied', async () => {
-  await request(app)
-    .post('/api/users/signup')
-    .send({
-      email: 'test@test.com',
-      password: 'password'
-    })
+it("returns 400 in invalid password", async () => {
+  await supertest(app)
+    .post("api/users/signup")
+    .send({ email: "foo@example.com", password: "passwords" })
     .expect(201);
 
-  await request(app)
-    .post('/api/users/signin')
-    .send({
-      email: 'test@test.com',
-      password: 'aslkdfjalskdfj'
-    })
+  await supertest(app)
+    .post("api/users/signin")
+    .send({ email: "foo@example.com", password: "shittttttt" })
     .expect(400);
 });
 
-it('responds with a cookie when given valid credentials', async () => {
-  await request(app)
-    .post('/api/users/signup')
-    .send({
-      email: 'test@test.com',
-      password: 'password'
-    })
+it("set a cookie when user successfully signups", async () => {
+  await supertest(app)
+    .post("api/users/signup")
+    .send({ email: "foo@example.com", password: "passwords" })
     .expect(201);
 
-  const response = await request(app)
-    .post('/api/users/signin')
-    .send({
-      email: 'test@test.com',
-      password: 'password'
-    })
+  const response = await supertest(app)
+    .post("api/users/signin")
+    .send({ email: "foo@example.com", password: "passwords" })
     .expect(200);
 
-  expect(response.get('Set-Cookie')).toBeDefined();
+  expect(response.get("Set-Cookie")).toBeDefined();
 });

@@ -1,11 +1,13 @@
-import express from 'express';
+import express, { Request, Response } from "express";
 
 const router = express.Router();
 
-router.post('/api/users/signout', (req, res) => {
+router.post("/signout", (req: Request, res: Response) => {
   req.session = null;
 
-  res.send({});
+  return res
+    .status(200)
+    .json({ status: "success", message: "Logged out successfully" });
 });
 
 export { router as signoutRouter };
