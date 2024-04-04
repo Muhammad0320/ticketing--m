@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: muhammad0320/ticketingClient
+          image: muhammad0320/ticketing-client
 
 ---
 apiVersion: v1

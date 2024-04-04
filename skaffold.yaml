@@ -25,7 +25,7 @@ build:
           - src: "src/**/*.ts"
             dest: .
 
-    - image: muhammad0320/ticketingClient
+    - image: muhammad0320/ticketing-client
       context: client
       docker:
         dockerfile: Dockerfile
