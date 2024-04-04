@@ -7,6 +7,8 @@ const start = async () => {
     throw new Error('JWT_KEY must be defined');
   }
 
+  // my-super-long-and-ultra-secure-jwt-secret
+
   try {
     await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
 
@@ -21,3 +23,9 @@ const start = async () => {
 };
 
 start();
+
+
+  /*
+    34.134.113.44 ticketing.dev
+34.68.142.10 ticketing--m.dev 
+    */
