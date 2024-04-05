@@ -5,6 +5,7 @@ import cookieSession from "cookie-session";
 import { currentUser, errorHandler, NotFound } from "@m0ticketing/common";
 import { createTicketRouter } from "./routes/new";
 import { showTicketRouter } from "./routes/show";
+import { ticketIndexRouter } from "./routes";
 
 const app = express();
 app.set("trust proxy", true);
@@ -22,6 +23,7 @@ const rootUrl = "/api/tickets";
 
 app.use(rootUrl, createTicketRouter);
 app.use(rootUrl, showTicketRouter);
+app.use(rootUrl, ticketIndexRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFound();
