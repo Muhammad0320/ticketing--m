@@ -10,7 +10,7 @@ it("returns a 401 if the user is not authenticated", async () => {
     .expect(401);
 });
 
-it("returns a 400 if there is no ticket with such id", async () => {
+it("returns a 404 if there is no ticket with such id", async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
 
   await request(app)

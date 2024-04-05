@@ -15,7 +15,7 @@ router.put(
   requireAuth,
   [
     body("title").not().isEmpty().withMessage("This field is provided"),
-    body("  price ")
+    body("price")
       .isFloat({ gt: 0 })
       .withMessage("Please provide a valid price"),
   ],
@@ -31,7 +31,11 @@ router.put(
       throw new NotAuthorized();
     }
 
-    res.status(200).json({ status: "success", ticket });
+    ticket.set({ title: req.body.title, price: req.body.price });
+
+    await ticket.save();
+
+    res.status(200).json({ status: "success", data: ticket });
   }
 );
 
