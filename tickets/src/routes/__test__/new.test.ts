@@ -1,4 +1,11 @@
-it("has a route handler listening to /api/tickets for post request", async () => {});
+import supertest from "supertest";
+import { app } from "../../app";
+
+it("has a route handler listening to /api/tickets for post request", async () => {
+  const response = await supertest(app).post("/api/tickets").send({});
+
+  expect(response.status).not.toEqual(404);
+});
 
 it("can only we accessed if user is authenticated", async () => {});
 
