@@ -23,24 +23,28 @@ it("return an error if user inputs an invalid title", async () => {
   await request(app)
     .post("/api/tickets")
     .set("Cookie", global.signin())
-    .send({ price: 10 });
+    .send({ price: 10 })
+    .expect(400);
 
   await request(app)
     .post("/api/tickets")
     .set("Cookie", global.signin())
-    .send({ title: "", price: 10 });
+    .send({ title: "", price: 10 })
+    .expect(400);
 });
 
 it("return an error when user inputs an invlid price", async () => {
   await request(app)
     .post("/api/tickets")
     .set("Cookie", global.signin())
-    .send({ title: "conce", price: 10 });
+    .send({ title: "concert", price: -10 })
+    .expect(400);
 
   await request(app)
     .post("/api/tickets")
     .set("Cookie", global.signin())
-    .send({ title: "", price: 10 });
+    .send({ title: "concert" })
+    .expect(400);
 });
 
 it("creates a ticket with valid inputs", async () => {});
