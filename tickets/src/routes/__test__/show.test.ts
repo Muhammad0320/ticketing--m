@@ -11,4 +11,21 @@ it("return a 404 when user finds to get a ticket that does not exist", async () 
     .expect(404);
 });
 
-it("return a ticket on valid id", async () => {});
+it("return a ticket on valid id", async () => {
+  const price = 30;
+
+  const title = "Tafseer";
+
+  const response = await request(app)
+    .post("/api/tickets")
+    .set("Cookie", global.signin())
+    .send({ title, price })
+    .expect(201);
+
+  const ticketResponse = await request(app)
+    .get("/api/tickets/" + response.body.id)
+    .send()
+    .expect(200);
+
+  console.log(ticketResponse);
+});
