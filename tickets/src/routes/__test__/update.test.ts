@@ -40,5 +40,19 @@ it("returns a 400 if user if user provides invalid price or title", async () => 
     .send({ title: "Tafseer", price: -90 })
     .expect(400);
 });
-it("returns a 401 if user tries to update other peoples ticket", async () => {});
+it("returns a 401 if user tries to update other peoples ticket", async () => {
+  const cookie = global.signin();
+
+  const response = await request(app)
+    .post("/api/tickets")
+    .set("Cookie", cookie)
+    .send({ title: "Quran competition", price: 99 })
+    .expect(201);
+
+  const tickeResponse = await request(app)
+    .put("/api/tickets/" + response.body.data.id)
+    .set("Cookie", global.signin())
+    .send({ title: "Shitt", price: 90 })
+    .expect(401);
+});
 it("updates ticket with valid inputs", async () => {});
