@@ -1,16 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DatabaseConnectionError = void 0;
-const custom_error_1 = require("./custom-error");
-class DatabaseConnectionError extends custom_error_1.CustomError {
+const CustomError_1 = require("./CustomError");
+class DatabaseConnectionError extends CustomError_1.CustomError {
     constructor() {
-        super('Error connecting to db');
+        super();
+        this.reasons = "Error connecting to database";
         this.statusCode = 500;
-        this.reason = 'Error connecting to database';
         Object.setPrototypeOf(this, DatabaseConnectionError.prototype);
     }
-    serializeErrors() {
-        return [{ message: this.reason }];
+    serializeError() {
+        return [{ message: this.reasons }];
     }
 }
 exports.DatabaseConnectionError = DatabaseConnectionError;

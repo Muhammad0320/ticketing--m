@@ -22,8 +22,10 @@ it("return a ticket on valid id", async () => {
     .send({ title, price })
     .expect(201);
 
+  console.log(response.body);
+
   const ticketResponse = await request(app)
-    .get("/api/tickets/" + response.body.id)
+    .get(`/api/tickets/${response.body._id}`)
     .send()
     .expect(200);
 

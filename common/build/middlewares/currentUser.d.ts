@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from "express";
 interface UserPayload {
     id: string;
     email: string;
@@ -6,7 +6,7 @@ interface UserPayload {
 declare global {
     namespace Express {
         interface Request {
-            currentUser?: UserPayload;
+            currentUser: UserPayload;
         }
     }
 }
