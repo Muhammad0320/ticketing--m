@@ -60,5 +60,5 @@ global.signin = () => {
 
   // returns a string and that's the cookie with encoded data
 
-  return [`session:${base64}`];
+  return [`session=${base64}`];
 };
