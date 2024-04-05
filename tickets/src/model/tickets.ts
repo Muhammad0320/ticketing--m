@@ -9,7 +9,7 @@ type TicketAttrs = {
 type TicketDoc = mongoose.Document & TicketAttrs;
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
-  buildTicket(attrs: TicketAttrs): TicketDoc;
+  buildTicket(attrs: TicketAttrs): Promise<TicketDoc>;
 }
 
 const ticketSchema = new mongoose.Schema(
@@ -41,3 +41,11 @@ const ticketSchema = new mongoose.Schema(
     },
   }
 );
+
+ticketSchema.statics.buildTicket = async (attrs: TicketAttrs) => {
+  return await Tickets.create(attrs);
+};
+
+const Tickets = mongoose.model<TicketDoc, TicketModel>("Tickets", ticketSchema);
+
+export default Tickets;
