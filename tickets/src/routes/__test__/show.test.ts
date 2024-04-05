@@ -25,9 +25,10 @@ it("return a ticket on valid id", async () => {
   console.log(response.body);
 
   const ticketResponse = await request(app)
-    .get(`/api/tickets/${response.body._id}`)
+    .get(`/api/tickets/${response.body.data.id}`)
     .send()
     .expect(200);
 
-  console.log(ticketResponse);
+  expect(ticketResponse.body.data.price).toEqual(price);
+  expect(ticketResponse.body.data.title).toEqual(title);
 });
