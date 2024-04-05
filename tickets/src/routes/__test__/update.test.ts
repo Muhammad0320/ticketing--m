@@ -58,4 +58,21 @@ it("returns a 401 if user tries to update other peoples ticket", async () => {
   expect(tickeResponse.body.data.title).toEqual("Quran competition");
   expect(tickeResponse.body.data.price).toEqual(99);
 });
-it("updates ticket with valid inputs", async () => {});
+it("updates ticket with valid inputs", async () => {
+  const cookie = global.signin();
+
+  const response = await request(app)
+    .post("/api/tickets")
+    .set("Cookie", cookie)
+    .send({ title: "Quran competition", price: 99 })
+    .expect(201);
+
+  const tickeResponse = await request(app)
+    .put("/api/tickets/" + response.body.data.id)
+    .set("Cookie", cookie)
+    .send({ title: "Shitt", price: 90 })
+    .expect(200);
+
+  expect(tickeResponse.body.data.title).toEqual("Shitt");
+  expect(tickeResponse.body.data.price).toEqual(90);
+});
