@@ -12,4 +12,12 @@ router.get("/:id", async (req: Request, res: Response) => {
   if (!ticket) {
     throw new NotFound();
   }
+
+  res.status(200).json({
+    status: "success",
+
+    data: ticket,
+  });
 });
+
+export { router as showTicketRouter };
