@@ -16,8 +16,3 @@ it("return an error if user inputs an invalid title", async () => {});
 it("return an error when user inputs an invlid price", async () => {});
 
 it("creates a ticket with valid inputs", async () => {});
-
-
-
-
-
