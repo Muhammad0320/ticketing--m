@@ -19,8 +19,28 @@ it("return a status other than 401 if the user is autheticated", async () => {
   expect(response.status).not.toEqual(401);
 });
 
-it("return an error if user inputs an invalid title", async () => {});
+it("return an error if user inputs an invalid title", async () => {
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", global.signin())
+    .send({ price: 10 });
 
-it("return an error when user inputs an invlid price", async () => {});
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", global.signin())
+    .send({ title: "", price: 10 });
+});
+
+it("return an error when user inputs an invlid price", async () => {
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", global.signin())
+    .send({ title: "conce", price: 10 });
+
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", global.signin())
+    .send({ title: "", price: 10 });
+});
 
 it("creates a ticket with valid inputs", async () => {});
