@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 
 import { requestValidator, requireAuth } from "@m0ticketing/common";
 import { body } from "express-validator";
+import Tickets from "../model/tickets";
 
 const router = express.Router();
 
@@ -18,7 +19,19 @@ router.post(
   requestValidator,
 
   async (req: Request, res: Response) => {
-    res.sendStatus(201);
+    const { title, price }: { title: string; price: number } = req.body;
+
+    const ticket = await Tickets.buildTicket({
+      title,
+      price,
+      userId: req.currentUser!.id,
+    });
+
+    res.status(201).json({
+      status: "success",
+
+      data: ticket,
+    });
   }
 );
 
