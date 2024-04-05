@@ -20,6 +20,25 @@ it("returns a 400 if there is no ticket with such id", async () => {
     .expect(404);
 });
 
-it("returns a 400 if user if user provides invalid price or title", async () => {});
+it("returns a 400 if user if user provides invalid price or title", async () => {
+  const cookie = global.signin();
+
+  const response = await request(app)
+    .post("/api/tickets")
+    .set("Cookie", cookie)
+    .send({ title: "Quran competition", price: 99 })
+    .expect(201);
+
+  await request(app)
+    .put("/api/tickets/" + response.body.data.id)
+    .set("Cookie", cookie)
+    .send({ title: "", price: 90 })
+    .expect(400);
+  await request(app)
+    .put("/api/tickets/" + response.body.data.id)
+    .set("Cookie", cookie)
+    .send({ title: "Tafseer", price: -90 })
+    .expect(400);
+});
 it("returns a 401 if user tries to update other peoples ticket", async () => {});
 it("updates ticket with valid inputs", async () => {});
