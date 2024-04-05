@@ -16,5 +16,7 @@ export const errorHandler = (
       .json({ status: "fail", errors: err.serializeError() });
   }
 
+  console.log(err);
+
   return res.status(400).json({ message: "something went very wrong" });
 };
