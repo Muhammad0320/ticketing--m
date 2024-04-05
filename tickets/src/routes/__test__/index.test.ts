@@ -16,4 +16,6 @@ it("fetches all tickets", async () => {
   await fetchTicket();
 
   const response = await request(app).get("/api/tickets").send().expect(200);
+
+  expect(response.body.data.length).toEqual(4);
 });
