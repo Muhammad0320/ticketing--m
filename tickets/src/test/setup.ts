@@ -34,7 +34,7 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-global.signin = async () => {
+global.signin = () => {
   const email = "test@test.com";
   const password = "password";
 
@@ -49,7 +49,7 @@ global.signin = async () => {
   // Build a session obj { jwt: MY_JWT }
 
   const sessionObj = { jwt: token };
-  
+
   // Turn the session obj into json string
 
   const sessionJSon = JSON.stringify(sessionObj);
