@@ -17,7 +17,7 @@ it("returns a 400 if there is no ticket with such id", async () => {
     .put("/api/tickets/" + id)
     .set("Cookie", global.signin())
     .send({ ticket: "tafseer", price: 50 })
-    .expect(400);
+    .expect(404);
 });
 
 it("returns a 400 if user if user provides invalid price or title", async () => {});
