@@ -2,6 +2,7 @@ import nats, { Stan } from "node-nats-streaming";
 
 const stan = nats.connect("ticketing", "shitt", {
   url: "http://localhost:4222",
+  connectTimeout: 100 * 1000,
 });
 
 stan.on("connect", () => {
