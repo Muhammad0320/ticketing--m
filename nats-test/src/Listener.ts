@@ -10,6 +10,8 @@ const stan = nats.connect("ticketing--m", randomBytes(4).toString("hex"), {
 stan.on("connect", () => {
   console.log("Event Listener created");
 
+  const options = stan.subscriptionOptions().setManualAckMode(true);
+
   const subscription = stan.subscribe(
     "ticket:created",
     "order-service-queue-group"
@@ -21,5 +23,7 @@ stan.on("connect", () => {
     console.log(
       "Event # " + msg.getSequence() + " was received, of data:  " + data
     );
+
+    msg.ack();
   });
 });
