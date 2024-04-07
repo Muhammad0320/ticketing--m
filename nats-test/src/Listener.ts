@@ -1,6 +1,6 @@
 import { randomBytes } from "crypto";
 import nats from "node-nats-streaming";
-import { TicketCreatedListenr } from "./TicketCrearedListener";
+import { TicketCreatedListenr } from "./events/TicketCrearedListener";
 
 console.clear();
 
