@@ -16,7 +16,11 @@ stan.on("connect", () => {
     process.exit();
   });
 
-  const options = stan.subscriptionOptions().setManualAckMode(true);
+  const options = stan
+    .subscriptionOptions()
+    .setManualAckMode(true)
+    .setDeliverAllAvailable()
+    .setDurableName("order-serivce");
 
   const subscription = stan.subscribe(
     "ticket:created",
