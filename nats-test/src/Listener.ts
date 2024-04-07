@@ -47,6 +47,8 @@ abstract class Listener {
 
   abstract queueGroupName: string;
 
+  abstract onMessage(data: any, msg: Message): void;
+
   private client: Stan;
 
   protected ackWait: number = 5 * 1000;
@@ -62,5 +64,27 @@ abstract class Listener {
       .setManualAckMode(true)
       .setDeliverAllAvailable()
       .setDurableName(this.queueGroupName);
+  }
+
+  onSubscribe() {
+    const subscription = this.client.subscribe(
+      this.subject,
+      this.queueGroupName,
+      this.subscriptionOptions()
+    );
+
+    subscription.on("message", async (msg: Message) => {
+      console.log(` Received event ${this.subject} / ${this.queueGroupName} `);
+
+      const data = this.parseMessage(msg);
+
+      await this.onMessage(data, msg);
+    });
+  }
+
+  parseMessage(msg: Message) {
+    const data = msg.getData() as string;
+
+    return JSON.parse(data);
   }
 }
