@@ -1,5 +1,5 @@
 import { randomBytes } from "crypto";
-import nats, { Message } from "node-nats-streaming";
+import nats, { Message, Stan, SubscriptionOptions } from "node-nats-streaming";
 
 console.clear();
 
@@ -41,3 +41,26 @@ stan.on("connect", () => {
 
 process.on("SIGTERM", () => stan.close());
 process.on("SIGINT", () => stan.close());
+
+abstract class Listener {
+  abstract subject: string;
+
+  abstract queueGroupName: string;
+
+  private client: Stan;
+
+  protected ackWait: number = 5 * 1000;
+
+  constructor(client: Stan) {
+    this.client = client;
+  }
+
+  subscriptionOptions(): SubscriptionOptions {
+    return this.client
+      .subscriptionOptions()
+      .setAckWait(this.ackWait)
+      .setManualAckMode(true)
+      .setDeliverAllAvailable()
+      .setDurableName(this.queueGroupName);
+  }
+}
