@@ -1,6 +1,5 @@
 import { randomBytes } from "crypto";
 import nats, { Message, Stan, SubscriptionOptions } from "node-nats-streaming";
-import { TicketCreatedListenr } from "./TicketCreatedListener";
 
 console.clear();
 
@@ -17,13 +16,13 @@ stan.on("connect", () => {
     process.exit();
   });
 
-  new TicketCreatedListenr(stan);
+  new TicketCreatedListenr(stan).listen();
 });
 
 process.on("SIGTERM", () => stan.close());
 process.on("SIGINT", () => stan.close());
 
-export abstract class Listener {
+abstract class Listener {
   abstract subject: string;
 
   abstract queueGroupName: string;
@@ -47,7 +46,7 @@ export abstract class Listener {
       .setDurableName(this.queueGroupName);
   }
 
-  onSubscribe() {
+  listen() {
     const subscription = this.client.subscribe(
       this.subject,
       this.queueGroupName,
@@ -55,7 +54,11 @@ export abstract class Listener {
     );
 
     subscription.on("message", async (msg: Message) => {
-      console.log(` Received event ${this.subject} / ${this.queueGroupName} `);
+      console.log(
+        ` Received event ${msg.getSequence()} ${this.subject} / ${
+          this.queueGroupName
+        } `
+      );
 
       const data = this.parseMessage(msg);
 
@@ -67,5 +70,17 @@ export abstract class Listener {
     const data = msg.getData() as string;
 
     return JSON.parse(data);
+  }
+}
+
+class TicketCreatedListenr extends Listener {
+  subject = "ticket:created";
+
+  queueGroupName = "payment-service";
+
+  onMessage(data: any, msg: Message) {
+    console.log(`Event data!: ${JSON.stringify(data)}`);
+
+    msg.ack();
   }
 }
