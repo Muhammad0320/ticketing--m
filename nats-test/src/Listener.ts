@@ -42,7 +42,7 @@ stan.on("connect", () => {
 process.on("SIGTERM", () => stan.close());
 process.on("SIGINT", () => stan.close());
 
-abstract class Listener {
+export abstract class Listener {
   abstract subject: string;
 
   abstract queueGroupName: string;
