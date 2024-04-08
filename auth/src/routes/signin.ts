@@ -14,7 +14,11 @@ router.post(
   [
     body("email").isEmail().withMessage("Please supply a valid email"),
 
-    body("password").trim().isEmpty().withMessage("Please supply a password"),
+    body("password")
+      .trim()
+      .not()
+      .isEmpty()
+      .withMessage("Please supply a password"),
   ],
 
   requestValidator,
@@ -32,6 +36,8 @@ router.post(
       existingUser.password,
       password
     );
+
+    console.log(isCorrectPassword);
 
     if (!isCorrectPassword) {
       throw new BadRequestError("Invalid login credentials");
