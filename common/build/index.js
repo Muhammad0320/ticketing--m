@@ -28,5 +28,6 @@ __exportStar(require("./events/Subjects"), exports);
 __exportStar(require("./events/BaseListener"), exports);
 __exportStar(require("./events/BasePublisher"), exports);
 __exportStar(require("./events/TicketCreatedEvent"), exports);
+__exportStar(require("./events/TicketUpdatedEvent"), exports);
 __exportStar(require("./events/TicketCreatedPublisher"), exports);
 __exportStar(require("./events/TicketCreatedPublisher"), exports);

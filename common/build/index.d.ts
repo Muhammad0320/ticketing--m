@@ -12,5 +12,6 @@ export * from "./events/Subjects";
 export * from "./events/BaseListener";
 export * from "./events/BasePublisher";
 export * from "./events/TicketCreatedEvent";
+export * from "./events/TicketUpdatedEvent";
 export * from "./events/TicketCreatedPublisher";
 export * from "./events/TicketCreatedPublisher";
