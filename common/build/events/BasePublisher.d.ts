@@ -5,7 +5,7 @@ interface Event {
     data: any;
 }
 export declare abstract class Publisher<T extends Event> {
-    abstract subjects: T["subject"];
+    abstract subject: T["subject"];
     private client;
     constructor(client: Stan);
     publish(data: T["data"]): Promise<void>;

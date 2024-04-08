@@ -6,7 +6,7 @@ const Subjects_1 = require("./Subjects");
 class TicketCreatedPublisher extends BasePublisher_1.Publisher {
     constructor() {
         super(...arguments);
-        this.subjects = Subjects_1.Subjects.TicketCreated;
+        this.subject = Subjects_1.Subjects.TicketCreated;
     }
 }
 exports.TicketCreatedPublisher = TicketCreatedPublisher;
