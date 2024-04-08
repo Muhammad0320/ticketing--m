@@ -15,5 +15,6 @@ stan.on("connect", () => {
     id: "abc",
     title: "concert",
     price: 45,
+    userId: "shit",
   });
 });
