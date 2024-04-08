@@ -20,11 +20,9 @@ const start = async () => {
       "http://nats-srv:4222"
     );
 
-    console.log(natsWrapper.client);
-
     natsWrapper.client.on("close", () => {
       console.log(" NATS connection closed! ");
-
+      console.log("Who's behind this");
       process.exit();
     });
 
@@ -35,6 +33,7 @@ const start = async () => {
 
     console.log("Connected to MongoDb");
   } catch (err) {
+    console.log("Let's see");
     console.error(err);
   }
 

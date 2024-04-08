@@ -4,10 +4,13 @@ import nats from "node-nats-streaming";
 class NatsWrapper {
   private _client?: Stan;
 
-  get client(): Stan {
+  get client() {
     if (!this._client) {
-      throw new Error(" Client is not initialized before access ");
+      console.log("Shoooo");
+      throw new Error(" Client is not initialized before connection ");
     }
+
+    console.log("Gotten 1");
 
     return this._client;
   }
@@ -15,11 +18,10 @@ class NatsWrapper {
   connect(clusterId: string, clientId: string, url: string) {
     this._client = nats.connect(clusterId, clientId, { url });
 
-    console.log(this.client);
-
     return new Promise<void>((resolve, reject) => {
       this.client.on("connect", () => {
         console.log("Connected to NATS !");
+        console.log("Gotten 2");
 
         resolve();
       });
