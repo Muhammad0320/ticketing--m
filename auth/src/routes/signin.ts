@@ -37,8 +37,6 @@ router.post(
       password
     );
 
-    console.log(isCorrectPassword);
-
     if (!isCorrectPassword) {
       throw new BadRequestError("Invalid login credentials");
     }
