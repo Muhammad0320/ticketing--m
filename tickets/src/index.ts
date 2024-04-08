@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 import { app } from "./app";
 import { natsWrapper } from "../natsWrapper";
+import { randomBytes } from "crypto";
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -15,9 +16,11 @@ const start = async () => {
   try {
     await natsWrapper.connect(
       "ticketing--m",
-      "nfejnvekvjnrejv",
+      randomBytes(4).toString("hex"),
       "http://nats-srv:4222"
     );
+
+    console.log(natsWrapper.client);
 
     natsWrapper.client.on("close", () => {
       console.log(" NATS connection closed! ");
