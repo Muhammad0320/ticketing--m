@@ -39,12 +39,12 @@ router.post(
 
     console.log("Yeeeeeeeeeeee");
 
-    // await new TicketCreatedPublisher(natsWrapper.client).publish({
-    //   id: ticket.id,
-    //   title: ticket.title,
-    //   price: ticket.price,
-    //   userId: ticket.userId,
-    // });
+    await new TicketCreatedPublisher(natsWrapper.client).publish({
+      id: ticket.id,
+      title: ticket.title,
+      price: ticket.price,
+      userId: ticket.userId,
+    });
 
     res.status(201).json({
       status: "success",
