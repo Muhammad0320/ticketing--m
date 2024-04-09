@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Orders, { OrderStatus } from "./orders";
 
 interface TicketAttrs {
   title: string;
@@ -40,6 +41,21 @@ const ticketSchema = new mongoose.Schema(
 
 ticketSchema.statics.buildTicket = async (attrs: TicketAttrs) => {
   return await Ticket.create(attrs);
+};
+
+ticketSchema.methods.isReserved = async function () {
+  const ticket = await Orders.findOne({
+    ticket: this,
+    status: {
+      $in: [
+        OrderStatus.AwaitingPaymemt,
+        OrderStatus.Completed,
+        OrderStatus.Created,
+      ],
+    },
+  });
+
+  return !!ticket;
 };
 
 const Ticket = mongoose.model<TicketDoc, TicketModel>("Ticket", ticketSchema);
