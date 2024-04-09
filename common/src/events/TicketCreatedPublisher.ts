@@ -1,5 +1,5 @@
-import { Publisher } from "./BasePublisher";
 import { Subjects } from "./Subjects";
+import { Publisher } from "./BasePublisher";
 import { TicketCreatedEvent } from "./TicketCreatedEvent";
 
 export class TicketCreatedPublisher extends Publisher<TicketCreatedEvent> {

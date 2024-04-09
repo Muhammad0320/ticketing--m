@@ -4,11 +4,11 @@ import {
   requestValidator,
   requireAuth,
 } from "@m0ticketing/common";
-import express, { Request, Response } from "express";
 import Tickets from "../model/tickets";
 import { body } from "express-validator";
-import { TicketUpdatedPublisher } from "../events/publisher/TicketUpdatedPublisher";
 import { natsWrapper } from "../natsWrapper";
+import express, { Request, Response } from "express";
+import { TicketUpdatedPublisher } from "../events/publisher/TicketUpdatedPublisher";
 
 const router = express.Router();
 

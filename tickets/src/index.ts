@@ -1,8 +1,7 @@
-import mongoose from "mongoose";
-
 import { app } from "./app";
-import { natsWrapper } from "./natsWrapper";
+import mongoose from "mongoose";
 import { randomBytes } from "crypto";
+import { natsWrapper } from "./natsWrapper";
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
