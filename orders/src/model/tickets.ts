@@ -13,3 +13,27 @@ export type TicketDoc = TicketAttrs &
 interface TicketModel extends mongoose.Model<TicketDoc> {
   buildOrder(attrs: TicketAttrs): TicketDoc;
 }
+
+const ticketSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: [true, "This field is required"],
+    },
+
+    price: {
+      type: Number,
+      required: [true, "This field is required"],
+      min: 0,
+    },
+  },
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+
+        delete ret._id;
+      },
+    },
+  }
+);
