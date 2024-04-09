@@ -44,3 +44,11 @@ const orderSchema = new mongoose.Schema(
     },
   }
 );
+
+orderSchema.statics.buildOrder = async (attrs: OrderAttrs) => {
+  return await Orders.create(attrs);
+};
+
+const Orders = mongoose.model<OrderDoc, OrderModel>("Orders", orderSchema);
+
+export default Orders;
