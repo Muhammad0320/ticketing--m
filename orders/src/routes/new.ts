@@ -8,8 +8,11 @@ import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import mongoose from "mongoose";
 import Ticket from "../model/tickets";
+import Orders, { OrderStatus } from "../model/orders";
 
 const router = express.Router();
+
+const EXPIRATION_WINDOWS_SECONDS = 15 * 60;
 
 router.post(
   "/",
@@ -36,6 +39,20 @@ router.post(
     if (!isReserved) {
       throw new BadRequestError("This ticket is reserved");
     }
+
+    const expiration = new Date();
+
+    expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOWS_SECONDS);
+
+    const order = await Orders.buildOrder({
+      ticket,
+      userId: req.currentUser.id,
+
+      status: OrderStatus.Created,
+      expiresAt: expiration,
+    });
+
+    res.status(201).json({ status: "success", data: order });
   }
 );
 
