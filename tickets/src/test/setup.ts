@@ -11,6 +11,8 @@ jest.mock("../natsWrapper.ts");
 
 let mongo: any;
 beforeAll(async () => {
+  jest.clearAllMocks();
+
   process.env.JWT_KEY = "ticketing-clientper-long-and-ultra-secure-jwt-secret";
 
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
