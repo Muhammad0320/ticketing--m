@@ -80,6 +80,6 @@ it("publishes a tikcet created event", async () => {
     .set("Cookie", global.signin())
     .send({ title, price })
     .expect(201);
-
+  
   expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
