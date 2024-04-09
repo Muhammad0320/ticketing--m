@@ -1,4 +1,4 @@
-import { requireAuth } from "@m0ticketing/common";
+import { requestValidator, requireAuth } from "@m0ticketing/common";
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import mongoose from "mongoose";
@@ -15,6 +15,7 @@ router.post(
       .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
       .withMessage("Please provide a valid ticketId"),
   ],
+  requestValidator,
   async (req: Request, res: Response) => {}
 );
 
