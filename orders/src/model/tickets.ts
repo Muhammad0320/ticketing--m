@@ -11,7 +11,7 @@ export type TicketDoc = TicketAttrs &
   };
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
-  buildOrder(attrs: TicketAttrs): TicketDoc;
+  buildTicket(attrs: TicketAttrs): TicketDoc;
 }
 
 const ticketSchema = new mongoose.Schema(
@@ -37,3 +37,11 @@ const ticketSchema = new mongoose.Schema(
     },
   }
 );
+
+ticketSchema.statics.buildTicket = async (attrs: TicketAttrs) => {
+  return await Ticket.create(attrs);
+};
+
+const Ticket = mongoose.model<TicketDoc, TicketModel>("Ticket", ticketSchema);
+
+export default Ticket;
