@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 import { app } from "./app";
-import { natsWrapper } from "../natsWrapper";
+import { natsWrapper } from "./natsWrapper";
 import { randomBytes } from "crypto";
 
 const start = async () => {

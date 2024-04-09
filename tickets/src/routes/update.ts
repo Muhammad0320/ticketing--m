@@ -8,7 +8,7 @@ import express, { Request, Response } from "express";
 import Tickets from "../model/tickets";
 import { body } from "express-validator";
 import { TicketUpdatedPublisher } from "../events/publisher/TicketUpdatedPublisher";
-import { natsWrapper } from "../../natsWrapper";
+import { natsWrapper } from "../natsWrapper";
 
 const router = express.Router();
 
