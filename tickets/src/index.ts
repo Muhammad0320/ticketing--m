@@ -1,6 +1,5 @@
 import { app } from "./app";
 import mongoose from "mongoose";
-import { randomBytes } from "crypto";
 import { natsWrapper } from "./natsWrapper";
 
 const start = async () => {
