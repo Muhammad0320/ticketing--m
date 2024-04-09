@@ -25,6 +25,15 @@ build:
           - src: "src/**/*.ts"
             dest: .
 
+    - image: muhammad0320/orders
+      context: orders
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+
     - image: muhammad0320/ticketing-client
       context: client
       docker:
