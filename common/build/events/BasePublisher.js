@@ -11,6 +11,7 @@ class Publisher {
                 if (err) {
                     return reject(err);
                 }
+                console.log("Event published tp subject:", this.subject);
                 return resolve();
             });
         });

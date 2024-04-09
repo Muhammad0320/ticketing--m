@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@m0ticketing/common": "^1.0.29",
+    "@m0ticketing/common": "^1.0.30",
     "@types/cookie-session": "^2.0.48",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.5",
