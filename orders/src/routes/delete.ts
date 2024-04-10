@@ -7,6 +7,8 @@ import {
 import express, { Request, Response } from "express";
 import Orders from "../model/orders";
 import mongoose from "mongoose";
+import { OrderCancelledPublisher } from "../events/publisher/OrderCancelledPublisher";
+import { natsWrapper } from "../natsWrapper";
 
 const router = express.Router();
 
@@ -24,6 +26,11 @@ router.delete("/:orderId", requireAuth, async (req: Request, res: Response) => {
   }
 
   order.status = OrderStatus.Cancelled;
+
+  await new OrderCancelledPublisher(natsWrapper.client).publish({
+    id: order.id,
+    ticket: { id: order.ticket.id },
+  });
 
   res.status(204).json({ status: "success" });
 });
