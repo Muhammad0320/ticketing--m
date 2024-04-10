@@ -26,8 +26,6 @@ it("returns a 400 if a ticket is already reserved", async () => {
     ticket,
   });
 
-  console.log(order);
-
   await request(app)
     .post("/api/orders")
     .set("Cookie", global.signin())
@@ -44,3 +42,5 @@ it("creates a order", async () => {
     .send({ ticketId: ticket.id })
     .expect(201);
 });
+
+it.todo("emits a order creared publisher");
