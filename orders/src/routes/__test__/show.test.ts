@@ -49,6 +49,6 @@ it("fetches an order", async () => {
   await request(app)
     .get(`/api/orders/${orderData.id}`)
     .set("Cookie", user)
-    .send({})
+    .send()
     .expect(200);
 });

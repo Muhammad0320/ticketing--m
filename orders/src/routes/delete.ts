@@ -12,7 +12,7 @@ const router = express.Router();
 router.delete("/:orderId", requireAuth, async (req: Request, res: Response) => {
   const { orderId } = req.params;
 
-  const order = await Orders.findById(orderId);
+  const order = await Orders.findById(orderId).populate("ticket");
 
   if (!order) {
     throw new NotFound();
