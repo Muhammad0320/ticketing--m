@@ -31,4 +31,12 @@ it("returns a 400 if a ticket is already reserved", async () => {
     .expect(400);
 });
 
-it("creates a ticket", async () => {});
+it("creates a order", async () => {
+  const ticket = await Ticket.buildTicket({ title: "shit ticket", price: 99 });
+
+  await request(app)
+    .post("/api/orders")
+    .set("Cookie", global.signin())
+    .send({ ticketId: ticket.id })
+    .expect(201);
+});
