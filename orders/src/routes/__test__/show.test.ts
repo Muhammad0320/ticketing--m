@@ -34,7 +34,7 @@ it("return a 400 if user tried to find other people's  order ", async () => {
 it("fetches an order", async () => {
   const user = global.signin();
 
-  const ticket = await Ticket.buildTicket({ price: 99, title: "shit ticket" });
+  const ticket = await Ticket.buildTicket({ price: 99, title: "shit " });
 
   const {
     body: { data: orderData },

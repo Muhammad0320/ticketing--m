@@ -36,8 +36,6 @@ router.post(
 
     const isReserved = await ticket.isReserved();
 
-    console.log(isReserved);
-
     if (isReserved) {
       throw new BadRequestError("This ticket is reserved");
     }
@@ -48,7 +46,7 @@ router.post(
 
     const order = await Orders.buildOrder({
       ticket,
-      userId: req.currentUser.id,
+      userId: req.currentUser!.id,
 
       status: OrderStatus.Created,
       expiresAt: expiration,
