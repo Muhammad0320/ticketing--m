@@ -22,10 +22,10 @@ app.use(currentUser);
 
 const rootUrl = "/api/orders";
 
+app.use(rootUrl, newOrderRouter);
 app.use(rootUrl, indexOrderRouter);
 app.use(rootUrl, deleteOrderRouter);
 app.use(rootUrl, showOrderRouter);
-app.use(rootUrl, newOrderRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFound();

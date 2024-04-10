@@ -26,7 +26,7 @@ router.post(
   ],
   requestValidator,
   async (req: Request, res: Response) => {
-    const { ticketId } = req.params;
+    const { ticketId } = req.body;
 
     const ticket = await Ticket.findById(ticketId);
 
@@ -35,6 +35,8 @@ router.post(
     }
 
     const isReserved = await ticket.isReserved();
+
+    console.log(isReserved);
 
     if (isReserved) {
       throw new BadRequestError("This ticket is reserved");
