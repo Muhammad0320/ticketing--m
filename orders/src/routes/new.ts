@@ -36,7 +36,7 @@ router.post(
 
     const isReserved = await ticket.isReserved();
 
-    if (!isReserved) {
+    if (isReserved) {
       throw new BadRequestError("This ticket is reserved");
     }
 
