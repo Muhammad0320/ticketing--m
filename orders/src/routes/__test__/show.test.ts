@@ -30,3 +30,23 @@ it("return a 400 if user tried to find other people's  order ", async () => {
     .send()
     .expect(400);
 });
+
+it("fetches an order", async () => {
+  const user = global.signin();
+
+  const ticket = await Ticket.buildTicket({ price: 99, title: "shit ticket" });
+
+  const {
+    body: { data: orderData },
+  } = await request(app)
+    .post("/api/orders")
+    .set("Cookie", user)
+    .send({ ticketId: ticket.id })
+    .expect(201);
+
+  await request(app)
+    .get(`/api/orders/${orderData.id}`)
+    .set("Cookie", user)
+    .send()
+    .expect(200);
+});
