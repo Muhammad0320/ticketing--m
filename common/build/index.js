@@ -32,3 +32,5 @@ __exportStar(require("./events/TicketCreatedEvent"), exports);
 __exportStar(require("./events/TicketUpdatedEvent"), exports);
 __exportStar(require("./events/TicketCreatedPublisher"), exports);
 __exportStar(require("./events/TicketCreatedPublisher"), exports);
+__exportStar(require("./events/OrderCreatedEvent"), exports);
+__exportStar(require("./events/OrderCancelledEvent"), exports);
