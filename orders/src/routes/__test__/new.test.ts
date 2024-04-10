@@ -3,6 +3,7 @@ import request from "supertest";
 import { app } from "../../app";
 import Ticket from "../../model/tickets";
 import Orders, { OrderStatus } from "../../model/orders";
+import { natsWrapper } from "../../natsWrapper";
 
 it("returns a 404 if ticket does not exist", async () => {
   const ticketId = new mongoose.Types.ObjectId().toHexString();
@@ -43,4 +44,14 @@ it("creates a order", async () => {
     .expect(201);
 });
 
-it.todo("emits a order creared publisher");
+it("emits a order creared publisher", async () => {
+  const ticket = await Ticket.buildTicket({ title: "shit ticket", price: 99 });
+
+  await request(app)
+    .post("/api/orders")
+    .set("Cookie", global.signin())
+    .send({ ticketId: ticket.id })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
