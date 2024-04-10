@@ -13,7 +13,7 @@ it("returns a 404 if the order does not exist", async () => {
     .expect(404);
 });
 
-it("return a 400 if user tried to find other people's  order ", async () => {
+it("return a 401 if user tried to find other people's  order ", async () => {
   const ticket = await Ticket.buildTicket({ price: 99, title: "shit ticket" });
 
   const {
@@ -44,7 +44,7 @@ it("fetches an order", async () => {
     .send({ ticketId: ticket.id })
     .expect(201);
 
-  console.log(orderData.id);
+  console.log(orderData.userId, "Testtttttttttttttt");
 
   await request(app)
     .get(`/api/orders/${orderData.id}`)

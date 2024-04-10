@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import Orders from "../model/orders";
 import { NotFound, requireAuth, NotAuthorized } from "@m0ticketing/common";
+import mongoose from "mongoose";
 
 const router = express.Router();
 
@@ -13,9 +14,7 @@ router.get("/:orderId", requireAuth, async (req: Request, res: Response) => {
     throw new NotFound();
   }
 
-  console.log(order);
-
-  if (order.userId !== req.currentUser!.id) {
+  if (!new mongoose.Types.ObjectId(req.currentUser.id).equals(order.userId)) {
     throw new NotAuthorized();
   }
 
