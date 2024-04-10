@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import Orders from "../model/orders";
-import { NotFound, BadRequestError, requireAuth } from "@m0ticketing/common";
+import { NotFound, requireAuth, NotAuthorized } from "@m0ticketing/common";
 
 const router = express.Router();
 
@@ -13,10 +13,10 @@ router.get("/:orderId", requireAuth, async (req: Request, res: Response) => {
     throw new NotFound();
   }
 
-  console.log(order.userId !== req.currentUser!.id);
+  console.log(order);
 
   if (order.userId !== req.currentUser!.id) {
-    throw new BadRequestError(" Not Authorized! ");
+    throw new NotAuthorized();
   }
 
   res.status(200).json({ status: "success", data: order });
