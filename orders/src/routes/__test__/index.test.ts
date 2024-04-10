@@ -24,6 +24,7 @@ it("fetckes all the tickets that belogs to a user", async () => {
     .set("Cookie", user1)
     .send({ ticketId: ticketOne.id })
     .expect(201);
+
   const {
     body: { data: order2 },
   } = await request(app)
@@ -31,6 +32,7 @@ it("fetckes all the tickets that belogs to a user", async () => {
     .set("Cookie", user2)
     .send({ ticketId: ticketTwo.id })
     .expect(201);
+
   const {
     body: { data: order3 },
   } = await request(app)
