@@ -17,6 +17,10 @@ it("returns a 404 if ticket does not exist", async () => {
 it("returns a 400 if a ticket is already reserved", async () => {
   const userId = new mongoose.Types.ObjectId().toHexString();
 
+  const cookie = global.signin();
+
+  console.log(cookie);
+
   const ticket = await Ticket.buildTicket({ title: "shit ticket", price: 99 });
 
   await Orders.buildOrder({
@@ -28,7 +32,7 @@ it("returns a 400 if a ticket is already reserved", async () => {
 
   await request(app)
     .post("/api/orders")
-    .set("Cookie", global.signin())
+    .set("Cookie", cookie)
     .send({ ticketId: ticket.id })
     .expect(400);
 });
