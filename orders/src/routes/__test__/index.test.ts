@@ -18,9 +18,7 @@ it("fetches all the tickets that belogs to a user", async () => {
 
   const user2 = global.signin();
 
-  const {
-    body: { data: order1 },
-  } = await request(app)
+  await request(app)
     .post("/api/orders")
     .set("Cookie", user1)
     .send({ ticketId: ticketOne.id })
@@ -42,10 +40,17 @@ it("fetches all the tickets that belogs to a user", async () => {
     .send({ ticketId: ticketThree.id })
     .expect(201);
 
-  const responseBody = await Orders.find({ userId: user2 });
+  const {
+    body: { data: orderData },
+  } = await request(app)
+    .get("/api/orders")
+    .set("Cookie", user2)
+    .send()
+    .expect(200);
 
-  console.log(responseBody);
-
-  expect(responseBody.length).toEqual(2);
-  expect(responseBody[0].id).toEqual(order2.id);
+  expect(orderData.length).toEqual(2);
+  expect(orderData[0].id).toEqual(order2.id);
+  expect(orderData[1].id).toEqual(order3.id);
+  expect(orderData[0].ticket.id).toEqual(ticketTwo.id);
+  expect(orderData[1].ticket.id).toEqual(ticketThree.id);
 });
