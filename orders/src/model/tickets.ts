@@ -12,7 +12,7 @@ export type TicketDoc = TicketAttrs &
   };
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
-  buildTicket(attrs: TicketAttrs): TicketDoc;
+  buildTicket(attrs: TicketAttrs): Promise<TicketDoc>;
 }
 
 const ticketSchema = new mongoose.Schema(
