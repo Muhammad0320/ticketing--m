@@ -19,7 +19,7 @@ it("returns a 400 if a ticket is already reserved", async () => {
 
   const ticket = await Ticket.buildTicket({ title: "shit ticket", price: 99 });
 
-  const order = await Orders.buildOrder({
+  await Orders.buildOrder({
     userId,
     status: OrderStatus.Created,
     expiresAt: new Date(),

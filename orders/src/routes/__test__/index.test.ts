@@ -1,4 +1,5 @@
 import { app } from "../../app";
+import Orders from "../../model/orders";
 import Ticket from "../../model/tickets";
 import request from "supertest";
 
@@ -8,7 +9,7 @@ const buildTicket = async () => {
   return ticket;
 };
 
-it("fetckes all the tickets that belogs to a user", async () => {
+it("fetches all the tickets that belogs to a user", async () => {
   const ticketOne = await buildTicket();
   const ticketTwo = await buildTicket();
   const ticketThree = await buildTicket();
@@ -38,6 +39,13 @@ it("fetckes all the tickets that belogs to a user", async () => {
   } = await request(app)
     .post("/api/orders")
     .set("Cookie", user2)
-    .send({ ticket: ticketThree.id })
+    .send({ ticketId: ticketThree.id })
     .expect(201);
+
+  const responseBody = await Orders.find({ userId: user2 });
+
+  console.log(responseBody);
+
+  expect(responseBody.length).toEqual(2);
+  expect(responseBody[0].id).toEqual(order2.id);
 });
