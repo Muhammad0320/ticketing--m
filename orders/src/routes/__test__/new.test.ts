@@ -15,10 +15,12 @@ it("returns a 404 if ticket does not exist", async () => {
 });
 
 it("returns a 400 if a ticket is already reserved", async () => {
+  const userId = new mongoose.Types.ObjectId().toHexString();
+
   const ticket = await Ticket.buildTicket({ title: "shit ticket", price: 99 });
 
   await Orders.buildOrder({
-    userId: "shit user",
+    userId,
     status: OrderStatus.Created,
     expiresAt: new Date(),
     ticket: ticket.id,
