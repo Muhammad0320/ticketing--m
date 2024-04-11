@@ -18,7 +18,9 @@ it("returns a 404 if ticket does not exist", async () => {
 it("returns a 400 if a ticket is already reserved", async () => {
   const userId = new mongoose.Types.ObjectId().toHexString();
 
-  const ticket = await Ticket.buildTicket({ title: "shit ticket", price: 99 });
+  const id = new mongoose.Types.ObjectId().toHexString();
+
+  const ticket = await Ticket.buildTicket({ title: "shit", price: 90, id });
 
   await Orders.buildOrder({
     userId,
@@ -35,7 +37,9 @@ it("returns a 400 if a ticket is already reserved", async () => {
 });
 
 it("creates a order", async () => {
-  const ticket = await Ticket.buildTicket({ title: "shit ticket", price: 99 });
+  const id = new mongoose.Types.ObjectId().toHexString();
+
+  const ticket = await Ticket.buildTicket({ title: "shit", price: 90, id });
 
   await request(app)
     .post("/api/orders")
@@ -45,7 +49,9 @@ it("creates a order", async () => {
 });
 
 it("emits a order creared publisher", async () => {
-  const ticket = await Ticket.buildTicket({ title: "shit ticket", price: 99 });
+  const id = new mongoose.Types.ObjectId().toHexString();
+
+  const ticket = await Ticket.buildTicket({ title: "shit", price: 90, id });
 
   await request(app)
     .post("/api/orders")
