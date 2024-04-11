@@ -33,4 +33,20 @@ it("implements optimistic concurrency control", async () => {
   throw new Error("Should not reach this point");
 });
 
-it("increments version number", async () => {});
+it("increments version number", async () => {
+  const ticket = await Tickets.buildTicket({
+    title: "shit",
+    price: 90,
+    userId: new mongoose.Types.ObjectId().toHexString(),
+  });
+
+  expect(ticket.version).toEqual(0);
+
+  ticket.set({ price: 80 });
+  await ticket.save();
+
+  expect(ticket.version).toEqual(1);
+  await ticket.save();
+
+  expect(ticket.version).toEqual(2);
+});
