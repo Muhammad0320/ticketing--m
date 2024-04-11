@@ -43,7 +43,6 @@ const ticketSchema = new mongoose.Schema(
 );
 
 ticketSchema.set("versionKey", "version");
-
 ticketSchema.plugin(updateIfCurrentPlugin);
 
 ticketSchema.statics.buildTicket = async (attrs: TicketAttrs) => {
