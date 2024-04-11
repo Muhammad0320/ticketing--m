@@ -24,10 +24,6 @@ it("implements optimistic concurrency control", async () => {
 
   // then the second
 
-  //   expect(async () => {
-  //     await ticketInstance2?.save();
-  // }).toThrow();
-
   try {
     await ticketInstance2?.save();
   } catch (error) {
@@ -36,3 +32,5 @@ it("implements optimistic concurrency control", async () => {
 
   throw new Error("Should not reach this point");
 });
+
+it("increments version number", async () => {});
