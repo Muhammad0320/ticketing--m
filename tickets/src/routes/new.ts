@@ -31,13 +31,11 @@ router.post(
 
     // console.log(natsWrapper.client);
 
-    if (!natsWrapper.client) {
-      console.log("I can see");
-    } else {
-      console.log("Ahhhhhhhh");
-    }
-
-    console.log("Yeeeeeeeeeeee");
+    // if (!natsWrapper.client) {
+    //   console.log("I can see");
+    // } else {
+    //   console.log("Ahhhhhhhh");
+    // }
 
     await new TicketCreatedPublisher(natsWrapper.client).publish({
       id: ticket.id,

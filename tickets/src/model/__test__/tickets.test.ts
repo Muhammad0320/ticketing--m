@@ -24,7 +24,15 @@ it("implements optimistic concurrency control", async () => {
 
   // then the second
 
-  expect(async () => {
+  //   expect(async () => {
+  //     await ticketInstance2?.save();
+  // }).toThrow();
+
+  try {
     await ticketInstance2?.save();
-  }).toThrow();
+  } catch (error) {
+    return;
+  }
+
+  throw new Error("Should not reach this point");
 });
