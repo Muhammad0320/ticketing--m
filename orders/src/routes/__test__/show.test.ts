@@ -14,7 +14,9 @@ it("returns a 404 if the order does not exist", async () => {
 });
 
 it("return a 401 if user tried to find other people's  order ", async () => {
-  const ticket = await Ticket.buildTicket({ price: 99, title: "shit ticket" });
+  const id = new mongoose.Types.ObjectId().toHexString();
+
+  const ticket = await Ticket.buildTicket({ title: "shit", price: 90, id });
 
   const {
     body: { data: orderData },
@@ -34,7 +36,9 @@ it("return a 401 if user tried to find other people's  order ", async () => {
 it("fetches an order", async () => {
   const user = global.signin();
 
-  const ticket = await Ticket.buildTicket({ price: 99, title: "shit " });
+  const id = new mongoose.Types.ObjectId().toHexString();
+
+  const ticket = await Ticket.buildTicket({ title: "shit", price: 90, id });
 
   const {
     body: { data: orderData },
