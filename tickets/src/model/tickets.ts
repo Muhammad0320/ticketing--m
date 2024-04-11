@@ -6,7 +6,7 @@ type TicketAttrs = {
   price: number;
 };
 
-type TicketDoc = mongoose.Document & TicketAttrs;
+type TicketDoc = mongoose.Document & TicketAttrs & { version: number };
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
   buildTicket(attrs: TicketAttrs): Promise<TicketDoc>;
