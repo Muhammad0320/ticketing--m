@@ -2,9 +2,12 @@ import { app } from "../../app";
 import Ticket from "../../model/tickets";
 import request from "supertest";
 import { natsWrapper } from "../../natsWrapper";
+import mongoose from "mongoose";
 
 it("cancels an order", async () => {
-  const ticket = await Ticket.buildTicket({ title: "shit", price: 90 });
+  const id = new mongoose.Types.ObjectId().toHexString();
+
+  const ticket = await Ticket.buildTicket({ title: "shit", price: 90, id });
 
   const user = global.signin();
 
@@ -24,7 +27,9 @@ it("cancels an order", async () => {
 });
 
 it("publishes an order cancelled event", async () => {
-  const ticket = await Ticket.buildTicket({ title: "shit", price: 90 });
+  const id = new mongoose.Types.ObjectId().toHexString();
+
+  const ticket = await Ticket.buildTicket({ title: "shit", price: 90, id });
 
   const user = global.signin();
 
