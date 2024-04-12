@@ -29,19 +29,12 @@ router.post(
       userId: req.currentUser!.id,
     });
 
-    // console.log(natsWrapper.client);
-
-    // if (!natsWrapper.client) {
-    //   console.log("I can see");
-    // } else {
-    //   console.log("Ahhhhhhhh");
-    // }
-
     await new TicketCreatedPublisher(natsWrapper.client).publish({
       id: ticket.id,
       title: ticket.title,
       price: ticket.price,
       userId: ticket.userId,
+      version: ticket.version,
     });
 
     res.status(201).json({

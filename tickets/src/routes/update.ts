@@ -40,8 +40,9 @@ router.put(
     await new TicketUpdatedPublisher(natsWrapper.client).publish({
       id: ticket.id,
       userId: ticket.userId,
-      title: req.body.title,
-      price: req.body.price,
+      title: ticket.title,
+      price: ticket.price,
+      version: ticket.version,
     });
 
     res.status(200).json({ status: "success", data: ticket });
