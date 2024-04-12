@@ -43,3 +43,11 @@ it("updates and saves a ticket", async () => {
   expect(updatedTicket?.title).toEqual("new shit ticket");
   expect(updatedTicket?.price).toEqual(90);
 });
+
+it("acks the message", async () => {
+  const { listener, data, msg } = await setup();
+
+  await listener.onMessage(data, msg);
+
+  expect(msg.ack).toHaveBeenCalled();
+});
