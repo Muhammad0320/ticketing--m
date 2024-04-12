@@ -35,4 +35,12 @@ const setup = async () => {
   return { listener, ticket, data, msg };
 };
 
-it("uodates the ticket when order is cancelled", async () => {});
+it("updates the ticket when order is cancelled", async () => {
+  const { listener, ticket, data, msg } = await setup();
+
+  await listener.onMessage(data, msg);
+
+  const updatedTicket = await Tickets.findById(ticket.id);
+
+  expect(updatedTicket?.orderId).not.toBeDefined();
+});
