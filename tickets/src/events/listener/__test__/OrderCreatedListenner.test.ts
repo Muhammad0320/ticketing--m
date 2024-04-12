@@ -53,7 +53,7 @@ it("acks the message", async () => {
 });
 
 it("publishes a ticket created event", async () => {
-  const { msg, data, ticket, listener } = await setup();
+  const { msg, data, listener } = await setup();
 
   await listener.onMessage(data, msg);
 
