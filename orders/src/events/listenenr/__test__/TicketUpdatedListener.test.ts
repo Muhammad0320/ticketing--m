@@ -31,4 +31,15 @@ const setup = async () => {
   return { listener, ticket, data, msg };
 };
 
-it("updates and saves a ticket", async () => {});
+it("updates and saves a ticket", async () => {
+  const { listener, ticket, data, msg } = await setup();
+
+  await listener.onMessage(data, msg);
+
+  const updatedTicket = await Ticket.findById(ticket.id);
+
+  expect(updatedTicket).toBeDefined();
+
+  expect(updatedTicket?.title).toEqual("new shit ticket");
+  expect(updatedTicket?.price).toEqual(90);
+});
