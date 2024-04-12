@@ -118,6 +118,8 @@ it("rejects updates for reserved tickets", async () => {
 
   updatedTicket?.set({ orderId: new mongoose.Types.ObjectId().toHexString() });
 
+  await updatedTicket!.save();
+
   await request(app)
     .put("/api/tickets/" + data.id)
     .set("Cookie", cookie)
