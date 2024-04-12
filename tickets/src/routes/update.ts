@@ -1,4 +1,5 @@
 import {
+  BadRequestError,
   NotAuthorized,
   NotFound,
   requestValidator,
@@ -31,6 +32,10 @@ router.put(
 
     if (req.currentUser.id !== ticket.userId) {
       throw new NotAuthorized();
+    }
+
+    if (ticket.orderId) {
+      throw new BadRequestError("Cannot update a reserved ticket");
     }
 
     ticket.set({ title: req.body.title, price: req.body.price });
