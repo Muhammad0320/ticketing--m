@@ -53,7 +53,7 @@ it("acks the message", async () => {
 });
 
 it("publishes a ticket created event", async () => {
-  const { msg, data, listener } = await setup();
+  const { msg, data, listener, ticket } = await setup();
 
   await listener.onMessage(data, msg);
 
@@ -63,5 +63,9 @@ it("publishes a ticket created event", async () => {
     (natsWrapper.client.publish as jest.Mock).mock.calls[0][1]
   );
 
-  expect(updatedTicketData.orderId).toEqual(data.id);
+  console.log(updatedTicketData);
+  console.log(ticket);
+  console.log(data);
+
+  expect(updatedTicketData.id).toEqual(data.ticket.id);
 });

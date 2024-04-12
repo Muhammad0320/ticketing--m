@@ -12,18 +12,21 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   async onMessage(data: OrderCreatedEvent["data"], msg: Message) {
     const ticket = await Tickets.findById(data.ticket.id);
 
+    console.log("He reach");
+
     if (!ticket) {
       throw new Error("Ticket not found");
     }
+    console.log("He no reach");
 
     ticket.set({ orderId: data.id });
-
     await ticket.save();
+
+    console.log(ticket.orderId, "yesss");
 
     await new TicketUpdatedPublisher(this.client).publish({
       id: ticket.id,
       userId: ticket.userId,
-
       version: ticket.version,
       title: ticket.title,
       price: ticket.price,
