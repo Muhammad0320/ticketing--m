@@ -43,3 +43,11 @@ it("add orderId to the ordered ticket", async () => {
 
   expect(updatedTicket?.orderId).toEqual(data.id);
 });
+
+it("acks the message", async () => {
+  const { msg, data, ticket, listener } = await setup();
+
+  await listener.onMessage(data, msg);
+
+  expect(msg.ack).toHaveBeenCalled();
+});
