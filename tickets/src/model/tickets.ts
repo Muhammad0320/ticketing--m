@@ -8,7 +8,8 @@ type TicketAttrs = {
   price: number;
 };
 
-type TicketDoc = mongoose.Document & TicketAttrs & { version: number };
+type TicketDoc = mongoose.Document &
+  TicketAttrs & { version: number; orderId?: string };
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
   buildTicket(attrs: TicketAttrs): Promise<TicketDoc>;
@@ -32,6 +33,8 @@ const ticketSchema = new mongoose.Schema(
 
       require: [true, "This field is required"],
     },
+
+    orderId: String,
   },
   {
     toJSON: {
@@ -54,6 +57,3 @@ ticketSchema.statics.buildTicket = async (attrs: TicketAttrs) => {
 const Tickets = mongoose.model<TicketDoc, TicketModel>("Tickets", ticketSchema);
 
 export default Tickets;
-
-
-
