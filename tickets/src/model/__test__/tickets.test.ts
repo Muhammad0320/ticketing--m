@@ -39,7 +39,7 @@ it("increments version number", async () => {
     price: 90,
     userId: new mongoose.Types.ObjectId().toHexString(),
   });
-
+  
   expect(ticket.version).toEqual(0);
 
   ticket.set({ price: 80 });
@@ -50,3 +50,10 @@ it("increments version number", async () => {
 
   expect(ticket.version).toEqual(2);
 });
+ 
+
+
+
+
+
+
