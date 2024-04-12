@@ -30,6 +30,8 @@ const setup = async () => {
   const msg: Message = {
     ack: jest.fn(),
   };
+
+  return { msg, data, ticket, listener };
 };
 
 it("add orderId to ordered ticket", async () => {});
