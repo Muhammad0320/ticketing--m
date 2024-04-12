@@ -44,3 +44,11 @@ it("updates the ticket when order is cancelled", async () => {
 
   expect(updatedTicket?.orderId).not.toBeDefined();
 });
+
+it("acks the message", async () => {
+  const { listener, data, msg } = await setup();
+
+  await listener.onMessage(data, msg);
+
+  expect(msg.ack).toHaveBeenCalled();
+});
