@@ -28,13 +28,12 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompleteEven
     console.log(order, "This is order from listenenr file it self");
 
     if (!fetchedOrder) {
-      console.log("show your faceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
       throw new Error("Order not found");
     }
 
     // order.set({ status: OrderStatus.Cancelled });
     // await order.save();
-
+    
     await new OrderCancelledPublisher(this.client).publish({
       id: fetchedOrder.id,
       version: fetchedOrder.version,
