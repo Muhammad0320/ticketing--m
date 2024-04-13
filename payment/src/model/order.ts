@@ -1,3 +1,4 @@
+import { OrderStatus } from "@m0ticketing/common";
 import mongoose from "mongoose";
 import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
@@ -5,20 +6,20 @@ interface OrderAttrs {
   id: string;
   price: number;
   version: number;
-  status: number;
+  status: OrderStatus;
   userId: string;
 }
 
 type OrderDoc = mongoose.Document & OrderAttrs;
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
-  buildOrder(attrs: OrderAttrs): OrderDoc;
+  buildOrder(attrs: OrderAttrs): Promise<OrderDoc>;
 }
 
 const orderSchema = new mongoose.Schema(
   {
     price: {
-      type: String,
+      type: Number,
       required: [true, "This field is required"],
     },
 
