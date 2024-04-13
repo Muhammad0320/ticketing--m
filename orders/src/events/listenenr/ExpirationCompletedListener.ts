@@ -15,21 +15,28 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompleteEven
   queueGroupName = queueGroupName;
 
   async onMessage(data: ExpirationCompleteEvent["data"], msg: Message) {
-    const order = await Orders.findByIdAndUpdate(
-      data.id,
-      {
-        status: OrderStatus.Cancelled,
-      },
-      { new: true }
-    ).populate("ticket");
+    let order;
 
-    const fetchedOrder = await Orders.findById(data.id).populate("ticket");
+    try {
+      order = await Orders.findByIdAndUpdate(
+        data.id,
+        {
+          status: OrderStatus.Cancelled,
+        },
+        { new: true }
+      ).populate("ticket");
 
-    console.log(order, "This is order from listenenr file it self");
-    console.log(
-      fetchedOrder,
-      "This is fetchedOrder from listenenr file it self"
-    );
+      const fetchedOrder = await Orders.findById(data.id).populate("ticket");
+
+      console.log(order, "This is order from listenenr file it self");
+      console.log(
+        fetchedOrder,
+        "This is fetchedOrder from listenenr file it self"
+      );
+    } catch (error) {
+      console.log("A don see am ");
+      console.log(error);
+    }
 
     if (!order) {
       throw new Error("Order not found");
