@@ -23,9 +23,13 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompleteEven
       { new: true }
     ).populate("ticket");
 
-    // const fetchedOrder = await Orders.findById(data.id).populate("ticket");
+    const fetchedOrder = await Orders.findById(data.id).populate("ticket");
 
     console.log(order, "This is order from listenenr file it self");
+    console.log(
+      fetchedOrder,
+      "This is fetchedOrder from listenenr file it self"
+    );
 
     if (!order) {
       throw new Error("Order not found");
