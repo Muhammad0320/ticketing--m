@@ -16,5 +16,6 @@ export * from "./events/TicketCreatedEvent";
 export * from "./events/TicketUpdatedEvent";
 export * from "./events/TicketCreatedPublisher";
 export * from "./events/TicketCreatedPublisher";
+export * from "./events/ExpirationCompleteEvent";
 export * from "./events/OrderCreatedEvent";
 export * from "./events/OrderCancelledEvent";
