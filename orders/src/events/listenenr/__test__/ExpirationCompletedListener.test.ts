@@ -54,3 +54,11 @@ it("updates order status to cancelled ", async () => {
 
   expect(updatedOrder!.status).toEqual(OrderStatus.Cancelled);
 });
+
+it("publishes an event", async () => {
+  const { listener, order, data, msg } = await setup();
+
+  listener.onMessage(data, msg);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
