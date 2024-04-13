@@ -15,9 +15,15 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompleteEven
   queueGroupName = queueGroupName;
 
   async onMessage(data: ExpirationCompleteEvent["data"], msg: Message) {
-    const order = await Orders.findByIdAndUpdate(data.id, {
-      status: OrderStatus.Cancelled,
-    }).populate("ticket");
+    console.log(data.id);
+
+    const order = await Orders.findByIdAndUpdate(
+      data.id,
+      {
+        status: OrderStatus.Cancelled,
+      },
+      { new: true }
+    ).populate("ticket");
 
     console.log(order, "This is order from listenenr file it self");
 
