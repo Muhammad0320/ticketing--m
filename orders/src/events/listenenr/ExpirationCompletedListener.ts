@@ -21,6 +21,8 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompleteEven
       throw new Error("Order not found");
     }
 
+    console.log("found me");
+
     order.status = OrderStatus.Cancelled;
     await order.save();
 
@@ -28,5 +30,7 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompleteEven
       id: order.id,
       ticket: { id: order.ticket.id },
     });
+
+    msg.ack();
   }
 }

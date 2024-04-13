@@ -22,7 +22,7 @@ const setup = async () => {
   // create order
 
   const order = await Orders.buildOrder({
-    userId: "shittt",
+    userId: new mongoose.Types.ObjectId().toHexString(),
     status: OrderStatus.Created,
 
     ticket: ticket.id,
