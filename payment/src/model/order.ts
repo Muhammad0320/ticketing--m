@@ -50,3 +50,11 @@ const orderSchema = new mongoose.Schema(
 
 orderSchema.set("versionKey", "version");
 orderSchema.plugin(updateIfCurrentPlugin);
+
+orderSchema.statics.buildOrder = async (attrs: OrderAttrs) => {
+  return await Orders.create(attrs);
+};
+
+const Orders = mongoose.model<OrderDoc, OrderModel>(" Orders ", orderSchema);
+
+export { Orders };
