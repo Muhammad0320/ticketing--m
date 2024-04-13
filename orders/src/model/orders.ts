@@ -12,7 +12,7 @@ interface OrderAttrs {
   expiresAt: Date;
 }
 
-type OrderDoc = mongoose.Document & OrderAttrs & { version: number };
+export type OrderDoc = mongoose.Document & OrderAttrs & { version: number };
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
   buildOrder(attrs: OrderAttrs): Promise<OrderDoc>;
