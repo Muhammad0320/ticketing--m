@@ -1,9 +1,6 @@
-
-
 import { natsWrapper } from "./natsWrapper";
 
 const start = async () => {
-
   if (!process.env.NATS_CLIENT_ID) {
     throw new Error("NATS_CLIENT_ID must be defined");
   }
@@ -29,9 +26,7 @@ const start = async () => {
     process.on("SIGTERM", () => natsWrapper.client.close());
     process.on("SIGINT", () => natsWrapper.client.close());
 
-
-
-    console.log('Started expiration')
+    console.log("Started expiration");
   } catch (err) {
     console.log("Let's see");
     console.error(err);

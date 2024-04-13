@@ -34,6 +34,15 @@ build:
           - src: "src/**/*.ts"
             dest: .
 
+    - image: muhammad0320/expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+
     - image: muhammad0320/ticketing-client
       context: client
       docker:
