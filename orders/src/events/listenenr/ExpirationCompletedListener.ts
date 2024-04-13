@@ -17,16 +17,14 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompleteEven
   async onMessage(data: ExpirationCompleteEvent["data"], msg: Message) {
     const order = await Orders.findById(data.id).populate("ticket");
 
+    console.log(order, "ueadhhhhhhhhhhhhhhhhhhhhhh");
+
     if (!order) {
       throw new Error("Order not found");
     }
 
-    console.log("found me");
-
     order.set({ status: OrderStatus.Cancelled });
     await order.save();
-
-    console.log("saved me");
 
     await new OrderCancelledPublisher(this.client).publish({
       id: order.id,
