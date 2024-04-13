@@ -1,4 +1,6 @@
 import Queue from "bull";
+import { ExpirationCompletePublisher } from "../event/publisher/ExpirationCompletedPublisher";
+import { natsWrapper } from "../natsWrapper";
 
 interface Payload {
   orderId: string;
@@ -9,7 +11,13 @@ const expirationQueue = new Queue<Payload>("order:expiration", {
 });
 
 expirationQueue.process(async (job) => {
-  console.log("I want to publish a order:expired event", job.data.orderId);
+  await new ExpirationCompletePublisher(natsWrapper.client).publish({
+    id: job.data.orderId,
+  });
+
+  console.log("Published expiration completed listener");
 });
 
 export { expirationQueue };
+
+// npm update @m0ticketing/common
