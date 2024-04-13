@@ -1,17 +1,9 @@
-import { app } from "./app";
-import mongoose from "mongoose";
+
+
 import { natsWrapper } from "./natsWrapper";
-import { OrderCancelledListener } from "./events/listener/OrderCancelledListener";
-import { OrderCreatedListener } from "./events/listener/OrderCreatedListener";
 
 const start = async () => {
-  if (!process.env.JWT_KEY) {
-    throw new Error("JWT_KEY must be defined");
-  }
 
-  if (!process.env.MONGO_URI) {
-    throw new Error("MONGO_URI must be defined");
-  }
   if (!process.env.NATS_CLIENT_ID) {
     throw new Error("NATS_CLIENT_ID must be defined");
   }
@@ -37,20 +29,17 @@ const start = async () => {
     process.on("SIGTERM", () => natsWrapper.client.close());
     process.on("SIGINT", () => natsWrapper.client.close());
 
-    new OrderCancelledListener(natsWrapper.client).listen();
-    new OrderCreatedListener(natsWrapper.client).listen();
 
-    await mongoose.connect(process.env.MONGO_URI);
 
-    console.log("Connected to MongoDb");
+    console.log('Started expiration')
   } catch (err) {
     console.log("Let's see");
     console.error(err);
   }
 
-  app.listen(3000, () => {
-    console.log("Listening on port 3000!!!!!!!!");
-  });
+  // app.listen(3000, () => {
+  //   console.log("Listening on port 3000!!!!!!!!");
+  // });
 };
 
 start();

@@ -10,7 +10,6 @@ class NatsWrapper {
       throw new Error(" Client is not initialized before connection ");
     }
 
-
     return this._client;
   }
 
