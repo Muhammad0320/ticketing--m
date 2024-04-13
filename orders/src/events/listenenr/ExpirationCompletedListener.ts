@@ -23,7 +23,7 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompleteEven
 
     console.log("found me");
 
-    order.status = OrderStatus.Cancelled;
+    order.set({ status: OrderStatus.Cancelled });
     await order.save();
 
     console.log("saved me");
