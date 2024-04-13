@@ -4,9 +4,9 @@ import {
   OrderStatus,
   Subjects,
 } from "@m0ticketing/common";
-import { queueGroupName } from "./queueGroupName";
-import { Message } from "node-nats-streaming";
 import Orders from "../../model/orders";
+import { Message } from "node-nats-streaming";
+import { queueGroupName } from "./queueGroupName";
 import { OrderCancelledPublisher } from "../publisher/OrderCancelledPublisher";
 
 export class ExpirationCompletedListener extends Listener<ExpirationCompleteEvent> {
