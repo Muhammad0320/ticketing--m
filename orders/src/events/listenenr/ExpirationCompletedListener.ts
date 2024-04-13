@@ -26,11 +26,15 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompleteEven
     order.status = OrderStatus.Cancelled;
     await order.save();
 
+    console.log("saved me");
+
     await new OrderCancelledPublisher(this.client).publish({
       id: order.id,
       version: order.version,
       ticket: { id: order.ticket.id },
     });
+
+    console.log("event published");
 
     msg.ack();
   }
