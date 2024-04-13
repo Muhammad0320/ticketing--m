@@ -15,16 +15,19 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompleteEven
   queueGroupName = queueGroupName;
 
   async onMessage(data: ExpirationCompleteEvent["data"], msg: Message) {
-    const order = await Orders.findById(data.id).populate("ticket");
+    const order = await Orders.findByIdAndUpdate(data.id, {
+      status: OrderStatus.Cancelled,
+    }).populate("ticket");
 
-    console.log(order, "ueadhhhhhhhhhhhhhhhhhhhhhh");
+    console.log(order, "This is order from listenenr file it self");
 
     if (!order) {
+      console.log("show your faceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
       throw new Error("Order not found");
     }
 
-    order.set({ status: OrderStatus.Cancelled });
-    await order.save();
+    // order.set({ status: OrderStatus.Cancelled });
+    // await order.save();
 
     await new OrderCancelledPublisher(this.client).publish({
       id: order.id,
@@ -32,7 +35,7 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompleteEven
       ticket: { id: order.ticket.id },
     });
 
-    console.log("event published");
+    console.log("event publishedsssssssss");
 
     msg.ack();
   }
