@@ -62,3 +62,9 @@ it("publishes an event", async () => {
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
+
+it("acks the message", async () => {
+  const { listener, order, data, msg } = await setup();
+
+  listener.onMessage(data, msg);
+});
