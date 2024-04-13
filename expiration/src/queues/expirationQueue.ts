@@ -1,6 +1,6 @@
 import Queue from "bull";
-import { ExpirationCompletePublisher } from "../event/publisher/ExpirationCompletedPublisher";
 import { natsWrapper } from "../natsWrapper";
+import { ExpirationCompletePublisher } from "../event/publisher/ExpirationCompletedPublisher";
 
 interface Payload {
   orderId: string;
