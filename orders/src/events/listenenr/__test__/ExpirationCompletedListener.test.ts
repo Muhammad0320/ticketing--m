@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import Ticket from "../../../model/tickets";
+import { Message } from "node-nats-streaming";
 import { natsWrapper } from "../../../natsWrapper";
-import { ExpirationCompletedListener } from "../ExpirationCompletedListener";
 import Orders, { OrderStatus } from "../../../model/orders";
 import { ExpirationCompleteEvent } from "@m0ticketing/common";
-import { Message } from "node-nats-streaming";
+import { ExpirationCompletedListener } from "../ExpirationCompletedListener";
 
 const setup = async () => {
   // create listenner
@@ -36,7 +36,6 @@ const setup = async () => {
   };
 
   // create message
-
   // @ts-ignore
   const msg: Message = {
     ack: jest.fn(),
@@ -59,6 +58,13 @@ it("publishes an event", async () => {
   const { listener, order, data, msg } = await setup();
 
   listener.onMessage(data, msg);
+
+  const updatedOrder = JSON.parse(
+    (natsWrapper.client.publish as jest.Mock).mock.calls[0][1]
+  );
+
+  console.log(updatedOrder);
+  console.log(order);
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
