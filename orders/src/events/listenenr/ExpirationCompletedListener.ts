@@ -33,7 +33,7 @@ export class ExpirationCompletedListener extends Listener<ExpirationCompleteEven
 
     // order.set({ status: OrderStatus.Cancelled });
     // await order.save();
-    
+
     await new OrderCancelledPublisher(this.client).publish({
       id: fetchedOrder.id,
       version: fetchedOrder.version,
