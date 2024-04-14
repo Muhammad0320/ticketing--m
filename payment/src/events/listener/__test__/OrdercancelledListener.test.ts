@@ -5,7 +5,7 @@ import { OrderCancelledListener } from "../OrderCancelledListener";
 import { OrderCancelledEvent, OrderStatus } from "@m0ticketing/common";
 import { Message } from "node-nats-streaming";
 
-const setup = () => {
+const setup = async () => {
   const listener = new OrderCancelledListener(natsWrapper.client);
 
   const order = await Orders.buildOrder({
@@ -33,4 +33,12 @@ const setup = () => {
   return { listener, order, data, msg };
 };
 
-it("cancels the order", async () => {});
+it("cancels the order", async () => {
+  const { listener, order, data, msg } = await setup();
+
+  await listener.onMessage(data, msg);
+
+  const updatedOrder = await Orders.findById(order.id);
+
+  expect(updatedOrder?.status).toEqual(OrderStatus.Cancelled);
+});
