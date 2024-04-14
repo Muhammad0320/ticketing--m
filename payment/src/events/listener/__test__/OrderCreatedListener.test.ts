@@ -8,22 +8,14 @@ import { OrderCreatedEvent, OrderStatus } from "@m0ticketing/common";
 const setup = async () => {
   const listener = new OrderCreatedListener(natsWrapper.client);
 
-  const order = await Orders.buildOrder({
-    id: new mongoose.Types.ObjectId().toHexString(),
-    price: 55,
-    version: 0,
-    status: OrderStatus.Created,
-    userId: "shit user",
-  });
-
   const data: OrderCreatedEvent["data"] = {
-    id: order.id,
-    status: order.status,
-    userId: order.userId,
+    id: new mongoose.Types.ObjectId().toHexString(),
+    status: OrderStatus.Created,
+    userId: "nenefefbenjf",
     expiresAt: "shit date",
     ticket: {
       id: new mongoose.Types.ObjectId().toHexString(),
-      price: order.price,
+      price: 99,
     },
   };
 
@@ -33,17 +25,17 @@ const setup = async () => {
     ack: jest.fn(),
   };
 
-  return { msg, data, order, listener };
+  return { msg, data, listener };
 };
 
 it(" create and saves a tikcket ", async () => {
-  const { msg, data, order, listener } = await setup();
+  const { msg, data, listener } = await setup();
 
   await listener.onMessage(data, msg);
 
   const newlyCreatedOrder = await Orders.findById(data.id);
 
-  expect(newlyCreatedOrder!.id).toEqual(order.id);
+  expect(newlyCreatedOrder!.id).toEqual(data.id);
 });
 
 it("acks the message", async () => {
