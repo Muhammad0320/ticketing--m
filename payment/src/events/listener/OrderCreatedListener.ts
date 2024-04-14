@@ -4,9 +4,9 @@ import {
   Subjects,
   OrderStatus,
 } from "@m0ticketing/common";
-import { queueGroupName } from "./queueGroupName";
-import { Message } from "node-nats-streaming";
 import { Orders } from "../../model/order";
+import { Message } from "node-nats-streaming";
+import { queueGroupName } from "./queueGroupName";
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   readonly subject = Subjects.OrderCreated;
