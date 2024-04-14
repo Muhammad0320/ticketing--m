@@ -42,3 +42,33 @@ const setup =async () => {
             return { msg, data, order, listener  }
 }
 
+
+
+it(' create and saves a tikcket ', async () => {
+
+
+    const  { msg, data, order, listener  } = await setup() ;
+
+   await listener.onMessage(data, msg) 
+
+
+
+    const newlyCreatedOrder = await Orders.findById(data.id) 
+
+    expect(newlyCreatedOrder.id).toEqual(order.id) 
+
+
+
+})
+
+
+it('acks the message',  async () => {
+
+
+    const  { msg, data, order, listener  } = await setup() ;
+
+    await listener.onMessage(data, msg) 
+
+    expect(msg.ack).toHaveBeenCalled()
+
+})
