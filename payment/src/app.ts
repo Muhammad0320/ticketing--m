@@ -16,7 +16,7 @@ app.use(
 
 app.use(currentUser);
 
-const rootUrl = "/api/tickets";
+const rootUrl = "/api/payment";
 
 app.all("*", async (req, res) => {
   throw new NotFound();
