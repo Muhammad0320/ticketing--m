@@ -22,6 +22,8 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
       { new: true }
     );
 
+    console.log(order);
+
     if (!order) {
       throw new Error("Orther not found");
     }
