@@ -31,7 +31,26 @@ it("returns a 401 if users tried to pay for a ticket that they don't own", async
       token: "fejvfjvf",
       orderId: order.id,
     })
-    .expect(404);
+    .expect(401);
 });
 
-it("returns a 400, if a calcelled order is orderes", async () => {});
+it("returns a 400, if a cancelled order is about to be paid for", async () => {
+  const id = new mongoose.Types.ObjectId().toHexString();
+
+  const order = await Orders.buildOrder({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    price: 99,
+    version: 0,
+    status: OrderStatus.Cancelled,
+    userId: id,
+  });
+
+  await request(app)
+    .post("/api/payment")
+    .set("Cookie", global.signin(id))
+    .send({
+      token: "fejvfjvf",
+      orderId: order.id,
+    })
+    .expect(400);
+});
