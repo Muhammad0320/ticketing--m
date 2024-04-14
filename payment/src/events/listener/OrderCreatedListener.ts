@@ -22,13 +22,15 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
       ticket: { price },
     } = data;
 
-    await Orders.buildOrder({
+    const newOrder = await Orders.buildOrder({
       id,
       status: OrderStatus.Created,
       price,
       userId,
       version: 0,
     });
+
+    console.log(newOrder, "listenner it selfffffffffffffffffffff");
 
     msg.ack();
   }

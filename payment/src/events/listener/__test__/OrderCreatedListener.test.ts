@@ -35,6 +35,10 @@ it(" create and saves a tikcket ", async () => {
 
   const newlyCreatedOrder = await Orders.findById(data.id);
 
+  console.log(data.id);
+
+  console.log(newlyCreatedOrder);
+
   expect(newlyCreatedOrder!.id).toEqual(data.id);
 });
 

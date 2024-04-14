@@ -25,6 +25,15 @@ build:
           - src: "src/**/*.ts"
             dest: .
 
+    - image: muhammad0320/payment
+      context: payment
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+
     - image: muhammad0320/orders
       context: orders
       docker:
