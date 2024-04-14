@@ -22,6 +22,8 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
       ticket: { price },
     } = data;
 
+    console.log(data, "this is the data obj");
+
     const newOrder = await Orders.buildOrder({
       id,
       status: OrderStatus.Created,

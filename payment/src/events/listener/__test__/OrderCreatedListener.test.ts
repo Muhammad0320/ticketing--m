@@ -8,8 +8,10 @@ import { OrderCreatedEvent, OrderStatus } from "@m0ticketing/common";
 const setup = async () => {
   const listener = new OrderCreatedListener(natsWrapper.client);
 
+  const id = new mongoose.Types.ObjectId().toHexString();
+
   const data: OrderCreatedEvent["data"] = {
-    id: new mongoose.Types.ObjectId().toHexString(),
+    id,
     status: OrderStatus.Created,
     userId: "nenefefbenjf",
     expiresAt: "shit date",

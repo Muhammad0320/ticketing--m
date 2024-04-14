@@ -53,7 +53,10 @@ orderSchema.set("versionKey", "version");
 orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.buildOrder = async (attrs: OrderAttrs) => {
-  return await Orders.create(attrs);
+  return await Orders.create({
+    _id: attrs.id,
+    ...attrs,
+  });
 };
 
 const Orders = mongoose.model<OrderDoc, OrderModel>(" Orders ", orderSchema);
