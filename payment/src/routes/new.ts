@@ -42,3 +42,5 @@ router.post(
     res.sendStatus(200);
   }
 );
+
+export { router as createCharegeRouter };
