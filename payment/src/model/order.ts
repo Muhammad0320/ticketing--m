@@ -6,7 +6,7 @@ interface OrderAttrs {
   id: string;
   price: number;
   version: number;
-  status: OrderStatus;
+  status: OrderStatus.Created;
   userId: string;
 }
 
