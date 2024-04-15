@@ -4,7 +4,9 @@ import mongoose from "mongoose";
 import { Orders } from "../../model/order";
 import { OrderStatus } from "@m0ticketing/common";
 
-jest.setTimeout(15 * 1000);
+// jest.setTimeout(15 * 1000);
+
+jest.mock("../../stripe.ts");
 
 it("returns a 404 if there is no order with such id", async () => {
   await request(app)
