@@ -6,10 +6,10 @@ import {
   requestValidator,
   requireAuth,
 } from "@m0ticketing/common";
-import express, { Request, Response } from "express";
-import { body } from "express-validator";
-import { Orders } from "../model/order";
 import { stripe } from "../stripe";
+import { Orders } from "../model/order";
+import { body } from "express-validator";
+import express, { Request, Response } from "express";
 
 const router = express.Router();
 
