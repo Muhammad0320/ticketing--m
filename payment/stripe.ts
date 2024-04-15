@@ -4,4 +4,6 @@ if (!process.env.STRIPE_KEY) {
   throw new Error("Stripe key not found");
 }
 
-export const stripe = new Stripe(process.env.STRIPE_KEY);
+export const stripe = new Stripe(process.env.STRIPE_KEY, {
+  apiVersion: "2024-04-10",
+});
