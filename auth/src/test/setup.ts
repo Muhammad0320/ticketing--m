@@ -33,7 +33,7 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-global.signin = async () => {
+global.signin = async (): Promise<string[]> => {
   const email = "test@test.com";
   const password = "password";
 
@@ -46,6 +46,10 @@ global.signin = async () => {
     .expect(201);
 
   const cookie = response.get("Set-Cookie");
+
+  if (!cookie) {
+    throw new Error("cookie not found");
+  }
 
   return cookie;
 };
