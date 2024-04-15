@@ -1,6 +1,7 @@
 import Stripe from "stripe";
 
 if (!process.env.STRIPE_KEY) {
+  console.log(process.env.STRIPE_KEY);
   throw new Error("Stripe key not found");
 }
 

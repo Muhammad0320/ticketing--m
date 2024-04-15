@@ -40,11 +40,13 @@ router.post(
       return new BadRequestError("This order is cancelled");
     }
 
-    await stripe.charges.create({
-      amount: order.price * 100,
-      currency: "usd",
-      source: token,
-    });
+    console.log("from new ts ", process.env.STRIPE_KEY!);
+
+    // await stripe.charges.create({
+    //   amount: order.price * 100,
+    //   currency: "usd",
+    //   source: token,
+    // });
 
     res.sendStatus(200);
   }
