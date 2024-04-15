@@ -22,7 +22,8 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
       { new: true }
     );
 
-    console.log(order);
+    console.log("from new ts ", process.env.STRIPE_KEY!);
+    console.log("from new ts ", process.env.STRIPE_KEY!);
 
     if (!order) {
       throw new Error("Orther not found");
