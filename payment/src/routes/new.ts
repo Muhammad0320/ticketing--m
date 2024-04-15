@@ -47,7 +47,7 @@ router.post(
       source: token,
     });
 
-    res.sendStatus(200);
+    res.sendStatus(201);
   }
 );
 
