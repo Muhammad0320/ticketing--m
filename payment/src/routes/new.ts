@@ -16,12 +16,13 @@ const router = express.Router();
 router.post(
   "/",
   requireAuth,
-  body("orderId")
-    .not()
-    .isEmpty()
-    .isString()
-    .withMessage("Please provide a valid userId"),
-  body("token").not().isEmpty().withMessage("Please provide a valid token"),
+  [
+    body("orderId")
+      .not()
+      .isEmpty()
+      .withMessage("Please provide a valid userId"),
+    body("token").not().isEmpty().withMessage("Please provide a valid token"),
+  ],
   requestValidator,
   async (req: Request, res: Response) => {
     const { token, orderId } = req.body;
