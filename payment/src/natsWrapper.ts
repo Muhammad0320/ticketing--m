@@ -1,12 +1,12 @@
-import { Stan } from "node-nats-streaming";
 import nats from "node-nats-streaming";
+import { Stan } from "node-nats-streaming";
 
 class NatsWrapper {
   private _client?: Stan;
 
   get client() {
     if (!this._client) {
-      console.log("Shoooo");
+   
       throw new Error(" Client is not initialized before connection ");
     }
 

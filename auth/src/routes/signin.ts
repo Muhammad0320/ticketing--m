@@ -14,11 +14,7 @@ router.post(
   [
     body("email").isEmail().withMessage("Please supply a valid email"),
 
-    body("password")
-      .trim()
-      .not()
-      .isEmpty()
-      .withMessage("Please supply a password"),
+    body("password").trim().isEmpty().withMessage("Please supply a password"),
   ],
 
   requestValidator,
